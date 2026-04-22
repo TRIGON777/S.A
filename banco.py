@@ -6,5 +6,5 @@ def conectar():
         user="root",
         password="",
         database="queens",
-        port=3406
+        port=3306
     )
