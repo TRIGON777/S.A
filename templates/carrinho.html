@@ -7,11 +7,11 @@
 {% for p in produtos %}
 <div class="card-carrinho">
 
-    <img src="{{ url_for('static', filename='img/' + p[3]) }}">
+    <img src="{{ url_for('static', filename='img/' + p[4]) }}">
 
     <div class="info">
         <h2>{{ p[1] }}</h2>
-        <p>R$ {{ p[2] }}</p>
+        <p>R$ {{ p[3] }}</p>
     </div>
 
     <a href="/remover_carrinho/{{ p[0] }}">

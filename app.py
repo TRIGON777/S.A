@@ -73,15 +73,24 @@ def produtos():
 
     return render_template('produtos.html', produtos=produtos, categoria=categoria)
 
-@app.route('/add_carrinho/<int:id>')
+@app.route('/add_carrinho/<int:id>', methods=['GET', 'POST'])
 def add_carrinho(id):
-    if 'carrinho' not in session:
-        session['carrinho'] = []
+    conexao = conectar()
+    cursor = conexao.cursor()
 
-    session['carrinho'].append(id)
-    session.modified = True
+    cursor.execute("SELECT * FROM produtos WHERE id = %s", (id,))
+    produto = cursor.fetchone()
 
-    return redirect('/produtos')
+    if request.method == 'POST':
+        if 'carrinho' not in session:
+            session['carrinho'] = []
+
+        session['carrinho'].append(id)
+        session.modified = True
+
+        return redirect('/carrinho')
+
+    return render_template('add_carrinho.html', produto=produto)
 
 @app.route('/carrinho')
 def carrinho():
@@ -98,7 +107,7 @@ def carrinho():
             
             if produto:
                 produtos_carrinho.append(produto)
-                total += float(produto[2]) 
+                total += float(produto[3]) 
     conexao.close()
 
     return render_template('carrinho.html', produtos=produtos_carrinho, total=total)
@@ -138,7 +147,7 @@ def pagamento():
                     cursor.execute("SELECT * FROM produtos WHERE id=%s", (id,))
                     produto = cursor.fetchone()
                     if produto:
-                        total += float(produto[2])
+                        total += float(produto[3])
                         produtos.append(produto)
 
             cursor.execute(

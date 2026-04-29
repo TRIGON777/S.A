@@ -1,7 +1,7 @@
 CREATE DATABASE queens;
 USE queens;
 
-CREATE TABLE produto (
+CREATE TABLE produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     categoria VARCHAR(50),

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Adicionar ao Carrinho</h1>
+
+<div class="card-carrinho">
+
+    <img src="{{ url_for('static', filename='img/' + produto[4]) }}">
+
+    <div class="info">
+        <h2>{{ produto[1] }}</h2>
+        <p>Categoria: {{ produto[2] }}</p>
+        <p>Preço: R$ {{ produto[3] }}</p>
+    </div>
+
+</div>
+
+<form method="POST">
+    <button type="submit" class="finalizar">Confirmar Compra</button>
+</form>
+
+<a href="/produtos">
+    <button class="button_remover">Cancelar</button>
+</a>
+
+{% endblock %}
